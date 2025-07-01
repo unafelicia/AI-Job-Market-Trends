@@ -2,13 +2,11 @@ import streamlit as st
 import joblib
 import numpy as np
 
-# Load model
 model = joblib.load("salary_prediction_model.pkl")
 
-st.title("💼 AI Job Salary Estimator")
+st.title("AI Job Salary Estimator")
 st.markdown("Estimate your AI job salary based on your profile.")
 
-# User Inputs (based on your dataset)
 experience = st.selectbox("Experience Level", ["EN", "MI", "SE", "EX"])
 employment = st.selectbox("Employment Type", ["FT", "PT", "CT", "FL"])
 company_location = st.selectbox("Company Location", ["United States", "Germany", "India", "France", "Other"])
@@ -19,7 +17,6 @@ education = st.selectbox("Education Level", ["Bachelor", "Master", "PhD", "Assoc
 years_experience = st.slider("Years of Experience", 0, 25, 3)
 industry = st.selectbox("Industry", ["Technology", "Healthcare", "Finance", "Retail", "Other"])
 
-# Encoding maps (simplified example — you should use your training-time mappings or label encoders)
 map_dict = {
     "experience": {"EN": 0, "MI": 1, "SE": 2, "EX": 3},
     "employment": {"FT": 0, "PT": 1, "CT": 2, "FL": 3},
@@ -30,7 +27,7 @@ map_dict = {
     "industry": {"Technology": 0, "Healthcare": 1, "Finance": 2, "Retail": 3, "Other": 4}
 }
 
-# Create feature vector
+
 input_features = [
     map_dict["experience"][experience],
     map_dict["employment"][employment],
@@ -43,7 +40,7 @@ input_features = [
     map_dict["industry"][industry]
 ]
 
-# Predict
+
 if st.button("Predict Salary"):
     prediction = model.predict([input_features])[0]
     st.success(f"💰 Estimated Salary: ${prediction:,.2f}")
